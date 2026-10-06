@@ -1,0 +1,66 @@
+[project]
+name = "enterprise-knowledge-assistant"
+version = "0.1.0"
+description = "Multi-Agent RAG System for Enterprise Knowledge"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Core web framework
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+
+    # Configuration
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.2.0",
+    "python-dotenv>=1.0.0",
+
+    # RAG / AI
+    "langgraph>=0.0.40",
+    "langchain-text-splitters>=0.0.1",
+    "faiss-cpu>=1.8.0",
+    "pymupdf>=1.23.0",
+    "sentence-transformers>=3.0.0",
+    "groq>=0.6.0",
+
+    # Utilities
+    "numpy>=1.24.0",
+    "tqdm>=4.66.0",
+    "python-multipart>=0.0.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.26.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*", "scripts*", "tests*", "streamlit*"]
+exclude = ["data*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "W", "UP", "B", "C4", "ARG"]
+ignore = ["ARG001", "ARG002"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
